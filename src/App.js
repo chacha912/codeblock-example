@@ -140,12 +140,12 @@ main();`,
           <pre className={className}>
             {tokens.map((line, i) => (
               <div key={i} {...getLineProps({ line, key: i })}>
-                <div>{i + 1}</div>
-                <div>
+                <span className='line-number'>{i + 1}</span>
+                <span className='line-content'>
                   {line.map((token, key) => (
                     <span key={key} {...getTokenProps({ token, key })} />
                   ))}
-                </div>
+                </span>
               </div>
             ))}
           </pre>
