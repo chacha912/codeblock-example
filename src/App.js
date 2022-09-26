@@ -1,6 +1,7 @@
 import './App.css';
 import ReactJson from 'react-json-view';
 import Highlight, { defaultProps } from 'prism-react-renderer';
+import theme from './prismTheme';
 
 function App() {
   const snippet = {
@@ -118,7 +119,7 @@ main();`,
   return (
     <div className='App'>
       <h2>Overview page - sample code</h2>
-      <Highlight {...defaultProps} code={snippet.cdn} language='markup'>
+      <Highlight {...defaultProps} code={snippet.cdn} theme={theme} language='markup'>
         {({ className, tokens, getLineProps, getTokenProps }) => (
           <pre className={className}>
             {tokens.map((line, i) => (
@@ -135,7 +136,7 @@ main();`,
         )}
       </Highlight>
       <h2>Document detail page - sample code(code view)</h2>
-      <Highlight {...defaultProps} code={documentJSONStr} language='json'>
+      <Highlight {...defaultProps} code={documentJSONStr} theme={theme} language='json'>
         {({ className, tokens, getLineProps, getTokenProps }) => (
           <pre className={className}>
             {tokens.map((line, i) => (
@@ -152,7 +153,29 @@ main();`,
         )}
       </Highlight>
       <h2>Document detail page - sample code(tree view)</h2>
-      <ReactJson src={documentJSON} displayObjectSize={false} displayDataTypes={false} />
+      <ReactJson
+        src={documentJSON}
+        displayObjectSize={false}
+        displayDataTypes={false}
+        theme={{
+          base00: 'null',
+          base01: 'null',
+          base02: 'null',
+          base03: 'null',
+          base04: 'null',
+          base05: 'null',
+          base06: 'null',
+          base07: 'null',
+          base08: 'null',
+          base09: 'null',
+          base0A: 'null',
+          base0B: 'null',
+          base0C: 'null',
+          base0D: 'null',
+          base0E: 'null',
+          base0F: 'null',
+        }}
+      />
     </div>
   );
 }
