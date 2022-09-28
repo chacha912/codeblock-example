@@ -1,0 +1,229 @@
+@use "./global/mixins-lib";
+@use "./global/variables";
+
+.codeblock_box {
+  overflow-x: auto;
+  padding: variables.$spacing_8 variables.$spacing_16;
+  border-radius: 4px;
+  border: 1px solid var(--gray-400);
+  background: var(--gray-000);
+  font-family: variables.$font-family-roboto;
+}
+
+.prism-code {
+  display: table;
+
+  .token-line {
+    display: table-row;
+  }
+
+  .line-number,
+  .line-content {
+    display: table-cell;
+  }
+
+  .line-number {
+    @include mixins-lib.rfonts(12, 24, 400);
+    color: var(--gray-500);
+    text-align: right;
+  }
+
+  .line-content {
+    padding-left: variables.$spacing_32;
+    @include mixins-lib.rfonts(14, 24, 400);
+  }
+
+  &.language-json {
+    .token {
+      &.punctuation {
+        color: #960fc6;
+      }
+
+      &.property {
+        color: #1fa6d0;
+      }
+
+      &.string {
+        color: #06ad17;
+      }
+
+      &.number {
+        color: #e75528;
+      }
+    }
+  }
+}
+
+.codeblock_tree_box {
+  padding: variables.$spacing_16 24px;
+  border: 1px solid var(--gray-400);
+  border-radius: 0 0 4px 4px;
+  background: var(--gray-000);
+  color: var(--gray-600);
+
+  .react-json-view {
+    font-family: variables.$font-family-common !important;
+
+    & > .object-container > .object-content > .object-key-val {
+      & > span:first-child {
+        .object-key::after {
+          display: none;
+        }
+      }
+    }
+  }
+
+  .object-key-val {
+    padding: 0 !important;
+
+    span {
+      display: inline-block;
+      opacity: 1 !important;
+    }
+
+    .object-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      margin-left: 24px !important;
+    }
+
+    // .icon-container {
+    //   visibility: hidden;
+    //   display: none !important;
+
+    //   & ~ span {
+    //     font-size: 0;
+    //   }
+    // }
+
+    .object-key,
+    .array-key,
+    .variable-row {
+      display: inline-block;
+      padding: 8px 12px;
+      margin-bottom: 16px;
+      border-radius: 4px;
+      border: 1px solid var(--gray-400);
+      @include mixins-lib.rfonts(12, 16, 500);
+      letter-spacing: 0 !important;
+
+      &.is_edited {
+        border-color: var(--yellow-0);
+        background: var(--yellow-alpha-light);
+        color: var(--yellow-dark);
+      }
+
+      &.is_created {
+        border-color: var(--green-0);
+        background: var(--green-alpha-light);
+        color: var(--green-dark);
+      }
+
+      &.is_removed {
+        border-color: var(--red-0);
+        background: var(--red-alpha-light);
+        color: var(--red-dark);
+      }
+    }
+
+    .object-key {
+      position: relative;
+
+      &::before {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin-right: 8px;
+        background: currentColor;
+        vertical-align: middle;
+        mask: url('./icon_arrow_down_codeblock.svg') no-repeat center;
+        content: '';
+      }
+    }
+
+    .variable-row,
+    .object-key-val {
+      position: relative;
+
+      &:first-of-type {
+        &::after {
+          top: -16px;
+          height: 32px;
+        }
+      }
+
+      &::after {
+        position: absolute;
+        top: 0;
+        width: 16px;
+        height: 16px;
+        border: 1px dashed var(--gray-400);
+        border-width: 0 0 1px 1px;
+        border-radius: 0 0 0 4px;
+        content: '';
+      }
+
+      &:not(:last-of-type) {
+        &::before {
+          position: absolute;
+          border: 1px dashed var(--gray-400);
+          border-width: 0 0 0 1px;
+          content: '';
+        }
+      }
+    }
+
+    .object-key-val {
+      &::after {
+        left: -17px;
+      }
+
+      &:not(:last-of-type) {
+        &::before {
+          left: -17px;
+          top: 17px;
+          bottom: 0;
+        }
+      }
+    }
+
+    .variable-row {
+      padding: 8px 12px !important;
+
+      &::after {
+        left: -18px;
+      }
+
+      &:not(:last-of-type) {
+        &::before {
+          left: -18px;
+          top: 16px;
+          bottom: -20px;
+        }
+      }
+
+      .object-key {
+        padding: 0;
+        border: 0;
+        margin: 0;
+
+        &::before,
+        &::after {
+          display: none;
+        }
+      }
+
+      .variable-value {
+        padding-right: 0 !important;
+      }
+    }
+
+    .brace-row {
+      display: block;
+      width: 0;
+      font-size: 0;
+    }
+  }
+}
