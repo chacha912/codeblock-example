@@ -1,7 +1,28 @@
 body {
-  padding: 0 40px;
+  padding: 0 40px 60px;
 }
 
 h2 {
-  margin: 40px 0 20px;
+  margin: 20px 0;
+}
+
+.codeblock_box,
+.codeblock_tree_box {
+  margin-bottom: 60px;
+}
+
+.github {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 0;
+  margin-left: auto;
+  margin-top: 20px;
+  width: 100px;
+  background: #efefef;
+  border-radius: 20px;
+}
+
+.github svg {
+  margin-right: 8px;
 }
