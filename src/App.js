@@ -4,6 +4,7 @@ import './app.css';
 import ReactJson from 'react-json-view';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import theme from './prismTheme';
+import classNames from 'classnames';
 
 function App() {
   const snippet = {
@@ -67,14 +68,6 @@ main();`,
           { x: 1064.0, y: 170.0 },
           { x: 1060.0, y: 170.0 },
           { x: 1054.0, y: 170.0 },
-          { x: 1054.0, y: 206.0 },
-          { x: 1052.0, y: 272.0 },
-          { x: 984.0, y: 371.0 },
-          { x: 885.0, y: 336.0 },
-          { x: 882.0, y: 216.0 },
-          { x: 1002.0, y: 177.0 },
-          { x: 1103.0, y: 247.0 },
-          { x: 1125.0, y: 283.0 },
         ],
         type: 'line',
       },
@@ -84,33 +77,6 @@ main();`,
           { x: 1049.0, y: 314.0 },
           { x: 1049.0, y: 314.0 },
           { x: 1058.0, y: 349.0 },
-          { x: 1076.0, y: 368.0 },
-          { x: 1100.0, y: 379.0 },
-          { x: 1121.0, y: 368.0 },
-          { x: 1137.0, y: 338.0 },
-          { x: 1129.0, y: 303.0 },
-          { x: 1070.0, y: 297.0 },
-          { x: 1024.0, y: 342.0 },
-          { x: 1032.0, y: 402.0 },
-          { x: 1064.0, y: 412.0 },
-          { x: 1113.0, y: 397.0 },
-          { x: 1138.0, y: 373.0 },
-          { x: 1136.0, y: 374.0 },
-          { x: 1089.0, y: 455.0 },
-          { x: 1007.0, y: 566.0 },
-          { x: 908.0, y: 581.0 },
-          { x: 841.0, y: 462.0 },
-          { x: 940.0, y: 410.0 },
-          { x: 1055.0, y: 429.0 },
-          { x: 1096.0, y: 450.0 },
-          { x: 1098.0, y: 457.0 },
-          { x: 1085.0, y: 462.0 },
-          { x: 1070.0, y: 460.0 },
-          { x: 1046.0, y: 444.0 },
-          { x: 1032.0, y: 405.0 },
-          { x: 1086.0, y: 366.0 },
-          { x: 1210.0, y: 399.0 },
-          { x: 1232.0, y: 412.0 },
         ],
         type: 'line',
       },
@@ -148,20 +114,32 @@ main();`,
       <h2>Document detail page - sample code(code view)</h2>
       <div className='codeblock_box'>
         <Highlight {...defaultProps} code={documentJSONStr} theme={theme} language='json'>
-          {({ className, tokens, getLineProps, getTokenProps }) => (
-            <pre className={className}>
-              {tokens.map((line, i) => (
-                <div key={i} {...getLineProps({ line, key: i })}>
-                  <span className='line-number'>{i + 1}</span>
-                  <span className='line-content'>
-                    {line.map((token, key) => (
-                      <span key={key} {...getTokenProps({ token, key })} />
-                    ))}
-                  </span>
-                </div>
-              ))}
-            </pre>
-          )}
+          {({ className, tokens, getLineProps, getTokenProps }) => {
+            const { className: tokenLineClassName, ...other } = getLineProps({ line: 1, key: 1 });
+
+            return (
+              <pre className={className}>
+                {tokens.map((line, i) => {
+                  const tokenLineClassNames = classNames(tokenLineClassName, {
+                    is_edited: i > 36 && i < 55,
+                    is_created: i > 21 && i < 26,
+                    is_removed: i > 3 && i < 10,
+                  });
+
+                  return (
+                    <div key={i} className={tokenLineClassNames} {...other}>
+                      <span className='line-number'>{i + 1}</span>
+                      <span className='line-content'>
+                        {line.map((token, key) => (
+                          <span key={key} {...getTokenProps({ token, key })} />
+                        ))}
+                      </span>
+                    </div>
+                  );
+                })}
+              </pre>
+            );
+          }}
         </Highlight>
       </div>
       <h2>Document detail page - sample code(tree view)</h2>
